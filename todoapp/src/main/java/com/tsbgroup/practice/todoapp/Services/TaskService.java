@@ -29,4 +29,18 @@ public class TaskService {
 		taskRepository.save(task);
 	}
 
+	public void deleteTask(Long id) {
+		// TODO Auto-generated method stub
+		taskRepository.deleteById(id);
+	}
+
+	public void toggleTask(Long id) {
+		// TODO Auto-generated method stub
+		Task task = taskRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid task id"));
+		task.setCompleted(!task.isCompleted());
+		
+		taskRepository.save(task);
+	}
+
 }

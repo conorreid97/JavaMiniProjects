@@ -12,7 +12,7 @@ public class ChatController {
 
     // /app/sendMessage
     @MessageMapping("/sendMessage")
-    @SendTo("/topic/messages")
+    @SendTo("/topic/message")
     public ChatMessage sendMessage(ChatMessage message){
         return message;
     }

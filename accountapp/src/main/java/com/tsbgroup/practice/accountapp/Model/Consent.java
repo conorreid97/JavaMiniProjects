@@ -24,10 +24,10 @@ public class Consent {
     private Account account;
 
     @Column(nullable = false)
-    private LocalDateTime creationDateTime;
+    private LocalDateTime creationDateTime  = LocalDateTime.now();
 
     @Column(nullable = false)
-    private LocalDateTime expirationDateTime;
+    private LocalDateTime expirationDateTime= LocalDateTime.now().plusMonths(6);
 
     // Getters and Setters
     public Long getId() {

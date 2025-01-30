@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api")
@@ -55,4 +57,18 @@ public class ConsentController {
 
         return response;
     }
+
+    @GetMapping("/consent/{consentId}")
+    public Optional<Consent> getConsentById(@PathVariable String consentId) {
+        return consentService.getConsentById(consentId);
+    }
+
+    @PatchMapping("/consent/{consentId}")
+    public Optional<Consent> updateConsent(@PathVariable String consentId, @RequestBody Map<String, String> updates) {
+        if (updates.containsKey("userName")) {
+            return consentService.updateConsent(consentId, updates.get("userName"));
+        }
+        return Optional.empty();
+    }
+    
 }

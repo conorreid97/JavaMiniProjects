@@ -7,19 +7,29 @@ import org.springframework.web.bind.annotation.*;
 import com.tsbgroup.practice.accountapp.Model.Consent;
 import com.tsbgroup.practice.accountapp.Service.ConsentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import reactor.core.publisher.Mono;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
+@Tag(name = "Consent API", description = "Handles Consent-related operations")
 @RestController
 @RequestMapping("/api")
 public class ConsentController {
 
     @Autowired
     private ConsentService consentService;
+
+    public ConsentController(ConsentService consentService){
+        this.consentService = consentService;
+    }
 
     @PostMapping("/consent")
     public Map<String, Object> createConsent(@RequestBody Consent consentRequest) {
@@ -70,5 +80,18 @@ public class ConsentController {
         }
         return Optional.empty();
     }
+
+    @Operation(summary = "Fetch user details using WebClient")
+    @GetMapping("/user-details/{userId}")
+    public Mono<String> getUserDetails(@PathVariable String userId){
+        return consentService.fetchUserDetails(userId);
+    }
     
+    @Operation(summary = "Fetch user details using Feign Client")
+    @GetMapping("/user-details-feign/{userId}")
+    public String getUserDetailsFeign(@PathVariable String userId) {
+        return consentService.fetchUserDetailsUsingFeign(userId);
+    }
+    
+
 }

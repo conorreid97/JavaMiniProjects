@@ -9,14 +9,22 @@ import org.springframework.stereotype.Service;
 import com.tsbgroup.practice.accountapp.Model.Consent;
 import com.tsbgroup.practice.accountapp.Repository.ConsentRepository;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public class ConsentService {
 
     @Autowired
     private ConsentRepository consentRepository;
+    private final UserServiceClient userServiceClient;
+    private final UserServiceFeignClient userServiceFeignClient;
     
-    public ConsentService(ConsentRepository consentRepository) {
+    public ConsentService(ConsentRepository consentRepository
+                            , UserServiceClient userServiceClient
+                            , UserServiceFeignClient userServiceFeignClient) {
         this.consentRepository = consentRepository;
+        this.userServiceClient = userServiceClient;
+        this.userServiceFeignClient = userServiceFeignClient;
     }
 
     public Consent saveConsent(Consent consent) {
@@ -38,5 +46,13 @@ public class ConsentService {
             return Optional.of(consent);
         }
         return Optional.empty();
+    }
+
+    public Mono<String> fetchUserDetails(String userId){
+        return userServiceClient.getUserDetails(userId);
+    }
+
+    public String fetchUserDetailsUsingFeign(String userId){
+        return userServiceFeignClient.getUserDetails(userId);
     }
 }

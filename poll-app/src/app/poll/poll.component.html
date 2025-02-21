@@ -1,1 +1,14 @@
-<p>poll works!</p>
+<h2 class="mt-4 text-center">Available Polls</h2>
+<div class="polls-list">
+    <!-- use ngFor to loop through the polls -->
+    <div *ngFor="let poll of polls" class="border rounded p-3 mb-3">
+        <h3>{{ poll.question }}</h3>
+        <div class="options-list">
+            <div *ngFor="let option of poll.options; let i = index">
+                <button class="btn btn-outline-primary me-2 mt-2">
+                    {{ option.optionText }} ( {{ option.voteCount }} votes)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,6 +32,7 @@ public class PollController {
 
     @PostMapping
     public Poll createPoll(@RequestBody Poll poll) {
+        System.out.println("Received Poll: " + poll);
         return pollService.createPoll(poll);
     }
     

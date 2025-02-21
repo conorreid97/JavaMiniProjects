@@ -1,3 +1,28 @@
+<div class="container mt-4">
+    <h2 class="text-center">Create Poll</h2>
+    <div class="mb-3">
+        <input
+            [(ngModel)]="newPoll.question"
+            placeholder="Poll Question"
+            class="form-control"
+            required
+        />
+    </div>
+
+    <div class="options-container mb-3">
+        <div *ngFor="let option of newPoll.options; let i = index; trackBy: trackByIndex"
+            class="input-group mb-2">
+            <input
+                [(ngModel)]="option.optionText"
+                placeholder="Option"
+                class="form-control"
+                required
+            />
+        </div>
+    </div>
+
+<button (click)="createPoll()" class="btn btn-primary">Create Poll</button>
+
 <h2 class="mt-4 text-center">Available Polls</h2>
 <div class="polls-list">
     <!-- use ngFor to loop through the polls -->
@@ -11,4 +36,6 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>

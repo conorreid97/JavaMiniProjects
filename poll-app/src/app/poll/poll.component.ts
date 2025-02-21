@@ -11,6 +11,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './poll.component.css'
 })
 export class PollComponent implements OnInit{
+  newPoll: Poll = {
+    id: 0,
+    question: '',
+    options: [
+      { optionText: '', voteCount: 0},
+      { optionText: '', voteCount: 0}
+    ]
+  };
+
   polls: Poll[] =[];
 
   constructor(private pollService: PollService){
@@ -30,5 +39,37 @@ export class PollComponent implements OnInit{
         console.error("Error fetching polls: ", error);
       }
     });
+  }
+
+  resetPoll() {
+    this.newPoll = {
+      id: 0,
+      question: '',
+      options: [
+        { optionText: '', voteCount: 0},
+        { optionText: '', voteCount: 0}
+      ]
+    };
+  }
+
+  createPoll() {
+    const payload = {
+      question: this.newPoll.question,
+      options: this.newPoll.options.map(opt => ({ optionText: opt.optionText }))
+    };
+
+    this.pollService.createPoll(this.newPoll).subscribe({
+      next: (createdPoll) => {
+        this.polls.push(createdPoll);
+        this.resetPoll();
+      },
+      error: (error) => {
+        console.error("Error fetching polls for create poll: ", error);
+      }
+    });
+  }
+
+  trackByIndex(index: number): number{
+    return index;
   }
 }

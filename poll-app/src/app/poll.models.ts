@@ -4,7 +4,7 @@ export interface OptionVote{
 }
 
 export interface Poll {
-    id: number;
+    id?: number; // Make id optional
     question: string;
     options: OptionVote[];
 }

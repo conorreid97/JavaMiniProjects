@@ -18,9 +18,15 @@
                 class="form-control"
                 required
             />
+            <button *ngIf="newPoll.options.length > 2"
+                (click) = "newPoll.options.splice(i, 1)"
+                class="btn btn-danger">
+                Remove
+            </button>
         </div>
     </div>
 
+<button (click)="addOption()" class="btn btn-primary">Add Another Poll</button>
 <button (click)="createPoll()" class="btn btn-primary">Create Poll</button>
 
 <h2 class="mt-4 text-center">Available Polls</h2>

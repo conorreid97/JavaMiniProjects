@@ -22,10 +22,6 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String getMethodName() {
-        return new String();
-    }
-    
     public List<Category> getAllCategories(){
         return categoryService.getAllCategories();
     }
